@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("androidx.navigation.safeargs")
-    //id("kotlin-kapt")
+    id("kotlin-kapt")
 }
 
 android {
@@ -46,7 +46,7 @@ android {
 }
 
 dependencies {
-    val navVersion = "2.7.2"
+    val navVersion = "2.7.3"
     val lifecycleVersion = "2.6.2"
     val roomVersion = "2.5.2"
     implementation("androidx.core:core-ktx:1.12.0")
@@ -68,8 +68,6 @@ dependencies {
     // Room
     implementation("androidx.room:room-runtime:$roomVersion")
     annotationProcessor("androidx.room:room-compiler:$roomVersion")
-    // To use Kotlin annotation processing tool (kapt)
-    //kapt("androidx.room:room-compiler:$roomVersion")
 
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:$roomVersion")

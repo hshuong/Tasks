@@ -27,6 +27,12 @@ class TaskFragment : Fragment() {
 
         // dung data binding, binding chinh la layout
         binding.viewModel= viewModel
+        // make each view respond to live data
+        // changes by adding the following line to the fragment code
+        // Dung data binding thi fragment khong can observe nua ma
+        // view (layout, binding) se observe cac thuoc tinh live data cua view model
+        // de cap nhat chinh view
+        binding.lifecycleOwner = viewLifecycleOwner
 
         return view
     }

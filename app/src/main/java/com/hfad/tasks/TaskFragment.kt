@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.hfad.tasks.databinding.FragmentTaskBinding
 
 class TaskFragment : Fragment() {
@@ -17,6 +18,16 @@ class TaskFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentTaskBinding.inflate(inflater, container, false)
         val view = binding.root
+
+        val application = requireNotNull(this.activity).application
+        val dao = TaskDatabase.getInstance(application).taskDao
+
+        val viewModelFactory = TasksViewModelFactory(dao)
+        val viewModel = ViewModelProvider(this, viewModelFactory)[TaskViewModel::class.java]
+
+        // dung data binding, binding chinh la layout
+        binding.viewModel= viewModel
+
         return view
     }
 

@@ -76,5 +76,8 @@ dependencies {
     // To use Kotlin Symbol Processing (KSP)
     ksp("androidx.room:room-compiler:$roomVersion")
 
+    // Recyclerview
+    implementation("androidx.recyclerview:recyclerview:1.3.1")
+
 
 }

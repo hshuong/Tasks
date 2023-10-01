@@ -47,8 +47,9 @@ class TaskFragment : Fragment() {
         viewModel.tasks.observe(viewLifecycleOwner, Observer {
             it?.let {
                 // co thay doi tasks thi gan du lieu tasks cho data cua adapter
-                // Trong TaskItemAdapter, thuoc tinh data co dang la: var data = listOf<Task>()
-                adapter.data = it
+                // Trong TaskItemAdapter, thuoc tinh data co dang la List<Task>: var data = listOf<Task>()
+                //adapter.data = it
+                adapter.submitList(it)
             }
         })
 

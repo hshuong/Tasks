@@ -36,7 +36,6 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    buildToolsVersion = "34.0.0"
 
     buildFeatures {
         // khong dung viewBinding vi dataBinding da tao ra cung binding class
@@ -79,6 +78,9 @@ dependencies {
 
     // Recyclerview
     implementation("androidx.recyclerview:recyclerview:1.3.1")
+
+    // Card view
+    implementation("androidx.cardview:cardview:1.0.0")
 
 
 }

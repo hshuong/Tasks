@@ -36,10 +36,18 @@ class TaskFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         val adapter = TaskItemAdapter()
+        // Recycler View la binding.taskList, trong fragment_task, recycler view co id la
+        // task_list => duoc tao 1 thuoc tinh cho binding co ten la taskList
+        // gan adapter cua recycler view task_list la adapter
         binding.taskList.adapter = adapter
 
+        // viewModel.tasks co dinh nghia tasks = dao.getAll() ket qua la
+        // LiveData dang <List<Task>: fun getAll(): LiveData<List<Task>>
+        // Fragment quan sat su thay doi cua thuoc tinh tasks cua viewModel
         viewModel.tasks.observe(viewLifecycleOwner, Observer {
             it?.let {
+                // co thay doi tasks thi gan du lieu tasks cho data cua adapter
+                // Trong TaskItemAdapter, thuoc tinh data co dang la: var data = listOf<Task>()
                 adapter.data = it
             }
         })

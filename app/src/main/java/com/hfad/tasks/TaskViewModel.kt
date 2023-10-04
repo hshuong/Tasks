@@ -6,12 +6,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
-class TaskViewModel(val dao : TaskDao) : ViewModel(){
+class TaskViewModel(private val dao : TaskDao) : ViewModel(){
     //var newTaskName =""
-    var newTaskName = MutableLiveData<String>("")
+    var newTaskName = MutableLiveData("")
 
     val tasks = dao.getAll()
 
+        // sau khi user bam vao 1 task o recycler view, ham onTaskClicked o duoi
+    // se duoc goi de gan id cua task vao _navigateToTask nay, de
+    // TaskFragment observe navigateToTask co thay doi se navigate sang EditTaskFragment
     private val _navigateToTask = MutableLiveData<Long?>()
     val navigateToTask : LiveData<Long?>
         get() = _navigateToTask

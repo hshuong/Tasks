@@ -3,7 +3,6 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("androidx.navigation.safeargs")
     id("com.google.devtools.ksp")
-    id("kotlin-kapt")
 }
 
 android {
@@ -41,6 +40,7 @@ android {
         // khong dung viewBinding vi dataBinding da tao ra cung binding class
         // chi tru activity la khong tao theo dataBinding
         //viewBinding = true
+        //noinspection DataBindingWithoutKapt
         dataBinding = true
     }
     buildToolsVersion = "34.0.0"
@@ -65,22 +65,18 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
     // LiveData
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
-
     // Room
     implementation("androidx.room:room-runtime:$roomVersion")
     annotationProcessor("androidx.room:room-compiler:$roomVersion")
-
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:$roomVersion")
-
     // To use Kotlin Symbol Processing (KSP)
     ksp("androidx.room:room-compiler:$roomVersion")
-
     // Recyclerview
     implementation("androidx.recyclerview:recyclerview:1.3.1")
-
     // Card view
     implementation("androidx.cardview:cardview:1.0.0")
 
-
+    // Add this in addition to your other dependencies
+    implementation ("androidx.activity:activity:1.8.0-rc01")
 }

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.hfad.tasks.databinding.FragmentTaskBinding
 
 class TaskFragment : Fragment() {
@@ -35,9 +36,13 @@ class TaskFragment : Fragment() {
         // de cap nhat chinh view
         binding.lifecycleOwner = viewLifecycleOwner
 
-        val adapter = TaskItemAdapter()
-        // Recycler View la binding.taskList, trong fragment_task, recycler view co id la
-        // task_list => duoc tao 1 thuoc tinh cho binding co ten la taskList
+        val adapter = TaskItemAdapter{
+            //taskId ->  Toast.makeText(context, "Clicked task $taskId", Toast.LENGTH_SHORT).show()
+            // truyen ham can thuc hien khi nguoi dung bam click vao item cua recycler view
+            taskId ->  viewModel.onTaskClicked(taskId)
+        }
+        // Recycler View co id la task_list trong fragment_task
+        // => duoc tao 1 thuoc tinh cho binding co ten la taskList: nen se la binding.taskList
         // gan adapter cua recycler view task_list la adapter
         binding.taskList.adapter = adapter
 
@@ -50,6 +55,18 @@ class TaskFragment : Fragment() {
                 // Trong TaskItemAdapter, thuoc tinh data co dang la List<Task>: var data = listOf<Task>()
                 //adapter.data = it
                 adapter.submitList(it)
+            }
+        })
+
+        viewModel.navigateToTask.observe(viewLifecycleOwner, Observer { taskId ->
+            taskId?.let {
+                // kiem tra taskId? hay chinh la navigateToTask co ko null moi thuc hien
+                val action = TaskFragmentDirections
+                                .actionTaskFragmentToEditTaskFragment(taskId)
+                this.findNavController().navigate(action)
+                // vi chi ko null moi thuc hien nen dat navigateToTask tro lai la null
+                // sau khi da navigate xong
+                viewModel.onTaskNavigated()
             }
         })
 

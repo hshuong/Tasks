@@ -1,5 +1,6 @@
 package com.hfad.tasks
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,6 +11,10 @@ class TaskViewModel(val dao : TaskDao) : ViewModel(){
     var newTaskName = MutableLiveData<String>("")
 
     val tasks = dao.getAll()
+
+    private val _navigateToTask = MutableLiveData<Long?>()
+    val navigateToTask : LiveData<Long?>
+        get() = _navigateToTask
 
     // ham .map returns a new LiveData object voi kieu cua ham formatTasks tra ve
     // o day formatTasks tra ve la 1 String, nen .map wrap String lai bang LiveData
@@ -26,6 +31,14 @@ class TaskViewModel(val dao : TaskDao) : ViewModel(){
             dao.insert(task)
         }
         newTaskName.value = ""
+    }
+
+    fun onTaskClicked(taskId: Long) {
+        _navigateToTask.value = taskId
+    }
+
+    fun onTaskNavigated() {
+        _navigateToTask.value = null
     }
 
 
